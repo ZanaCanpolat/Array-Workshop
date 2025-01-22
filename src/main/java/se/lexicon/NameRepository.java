@@ -1,5 +1,7 @@
 package se.lexicon;
 
+import java.util.Arrays;
+
 /**
  * The NameRepository class provides methods to manage a list of names.
  * It offers functionalities such as adding, removing, finding, and updating names.
@@ -16,6 +18,7 @@ public class NameRepository {
      */
     public static int getSize() {
         //todo: PART 1: implement getSize method
+
         if (names != null) {
             return names.length;
         }
@@ -24,22 +27,42 @@ public class NameRepository {
 
     /**
      * Sets the names array to the provided array of names & it should replace all existing names.
+     * It is unclear to me where I should get the name to ad to the method, should I just invent a name or ask the user for input?
      *
      * @param names The array of names to set.
      */
     public static void setNames(final String[] names) {
         //todo: PART 1: implement setNames method
-        //it is unclear to me where I should get the name to ad to the method, should I just invent a name or ask the user for input?
-        names = new String[];
 
+        String[] newNames = new String[names.length + 1];
+        for (int i = 0; i < names.length; i++) {
+            newNames[i] = names[i];
+        }
     }
 
 
     /**
      * Clears the names array by creating a new empty array.
+     * I have problem with understanding the exercise / workshop, creating a new empty array does not clear the original
+     * array and we have no way to access the newly created array of we dont return it, please explain what the meaning is
      */
     public static void clear() {
         //todo: PART 1: implement clear method
+
+        /*Here is one way of clearing array
+          names = new String[names.length];
+         */
+
+        /* Here is another way of clearing an array
+        for (int i = 0; i < names.length; i++)
+        {
+            newNames[i] = null;
+        }
+         */
+
+        /* Here is a third way of clearing an array we create a new array with same length but now way of using it
+            String [] newNames = new String[names.length]
+         */
     }
 
 
@@ -50,9 +73,18 @@ public class NameRepository {
      */
     public static String[] findAll() {
         //todo: PART 1: implement findAll method
-        return null;
-    }
 
+        String[] newNames = new String[names.length];
+        for (int i = 0; i < names.length; i++) {
+            newNames[i] = names[i];
+        }
+        return newNames;
+
+        else
+        {
+            return null;
+        }
+    }
 
     /**
      * Finds a name that matches the given fullName case-insensitively.
@@ -62,9 +94,14 @@ public class NameRepository {
      */
     public static String find(final String fullName) {
         //todo: PART 2: implement find method
-        return null;
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].equals(fullName)) {
+                return fullName;
+            } else {
+                return null;
+            }
+        }
     }
-
 
     /**
      * Adds a new fullName to the names array if it doesn't already exist.
@@ -74,7 +111,19 @@ public class NameRepository {
      */
     public static boolean add(final String fullName) {
         //todo: PART 2: implement add method
-        return false;
+        //Check the array, if name does not exist create a new array and add the name and return true.
+        //If the name exists return false.
+
+        if (find(fullName) == null) {
+            String[] newName = new String[names.length + 1];
+            for (int i = 0; i < names.length; i++) {
+                newName[i] = names[i];
+            }
+            newName[newName.length - 1] = fullName;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -86,7 +135,32 @@ public class NameRepository {
      */
     public static String[] findByFirstName(final String firstName) {
         //todo: PART 3: findByFirstName method
-        return null;
+        //Read throw the array and check how many first names that matches in the array, create a new array with the
+        //countsize, go throw the array again and ad all the name
+
+        //This block of code iterates throw array and counts how many instance of lastname we find and ad to count
+        int count = 0;
+        String testName;
+        for (int i = 0; i < names.length; i++) {
+            testName = names[i].split(" ")[0];   //This line splits the name at the space and stores the first name in testname
+            if (testName.equalsIgnoreCase(firstName))   //Compares the firstname with parameter without taking consideration to capital letters
+            {
+                count++;
+            }
+        }
+
+        if (count != 0) {
+            String[] newNames = new String[count];
+            for (int i = 0; i < names.length; i++) {
+                testName = names[i].split(" ")[0];   //This line splits the name at the space and stores the first name in testname
+                if (testName.equalsIgnoreCase(firstName)) {
+                    newNames[i] = names[i];
+                }
+            }
+            return newNames;
+        } else {
+            return null;
+        }
     }
 
 
@@ -98,9 +172,31 @@ public class NameRepository {
      */
     public static String[] findByLastName(final String lastName) {
         //todo: PART 3: implement findByLastName method
-        return null;
-    }
 
+        //This block of code iterates throw array and counts how many instance of lastname we find and ad to count
+        int count = 0;
+        String testName;
+        for (int i = 0; i < names.length; i++) {
+            testName = names[i].split(" ")[1];   //This line splits the name at the space and stores the last name in testname
+            if (testName.equalsIgnoreCase(lastName))   //Compares the lastname with parameter without taking consideration to capital letters
+            {
+                count++;
+            }
+        }
+
+        if (count != 0) {
+            String[] newNames = new String[count];
+            for (int i = 0; i < names.length; i++) {
+                testName = names[i].split(" ")[0];   //This line splits the name at the space and stores the first name in testname
+                if (testName.equalsIgnoreCase(lastName)) {
+                    newNames[i] = names[i];
+                }
+            }
+            return newNames;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Updates a name in the names array from the original name to the updated name.
@@ -111,7 +207,31 @@ public class NameRepository {
      */
     public static boolean update(final String original, final String updatedName) {
         //todo: PART 3: implement update method
-        return false;
+        //Create a new array, iterate throw the array to find the name we need to update
+
+        boolean updated = false;
+        String [] newName = new String[names.length];
+
+        for (int i = 0; i < names.length; i++)
+        {
+            if (names[i].equalsIgnoreCase(original))
+            {
+                newName[i] = updatedName;
+                updated = true;
+
+            }
+            else
+            {
+                newName[i] = names[i];
+            }
+        }
+        if (updated)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
@@ -123,7 +243,32 @@ public class NameRepository {
      */
     public static boolean remove(final String fullName) {
         //todo: PART 4: implement remove method
-        return false;
+        //Create an array that will hold the new list, iterate throw the list and contorl each element to fullName
+        // If found set removed to true.
+
+        boolean removed = false;
+
+        String [] newName = new String[names.length];
+
+        for (int i = 0; i < names.length; i++)
+        {
+            if (names[i].equalsIgnoreCase(fullName))
+            {
+                removed = true;
+            }
+            else
+            {
+                newName[i] = names[i];
+            }
+        }
+
+        if(removed)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
