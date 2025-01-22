@@ -16,9 +16,11 @@ public class NameRepository {
      */
     public static int getSize() {
         //todo: PART 1: implement getSize method
+        if (names != null) {
+            return names.length;
+        }
         return 0;
     }
-
 
     /**
      * Sets the names array to the provided array of names & it should replace all existing names.
