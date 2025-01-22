@@ -29,6 +29,9 @@ public class NameRepository {
      */
     public static void setNames(final String[] names) {
         //todo: PART 1: implement setNames method
+        //it is unclear to me where I should get the name to ad to the method, should I just invent a name or ask the user for input?
+        names = new String[];
+
     }
 
 
