@@ -43,15 +43,11 @@ public class NameRepository {
 
     /**
      * Clears the names array by creating a new empty array.
-     * I have problem with understanding the exercise / workshop, creating a new empty array does not clear the original
-     * array and we have no way to access the newly created array of we dont return it, please explain what the meaning is
      */
     public static void clear() {
         //todo: PART 1: implement clear method
 
-        /*Here is one way of clearing array
-          names = new String[names.length];
-         */
+        names = new String[names.length];
 
         /* Here is another way of clearing an array
         for (int i = 0; i < names.length; i++)
@@ -270,6 +266,4 @@ public class NameRepository {
             return false;
         }
     }
-
-
 }
